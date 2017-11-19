@@ -6,3 +6,8 @@ D:\0000 WEB_Projects Visual Studio\28 Job Interview Works\RssFeedFenix(RomanSt)\
 D:\0000 WEB_Projects Visual Studio\28 Job Interview Works\RssFeedFenix(RomanSt)\RssFeedFenix\RssFeedCore\obj\Debug\RssService.csprojResolveAssemblyReference.cache
 D:\0000 WEB_Projects Visual Studio\28 Job Interview Works\RssFeedFenix(RomanSt)\RssFeedFenix\RssFeedCore\obj\Debug\RssService.dll
 D:\0000 WEB_Projects Visual Studio\28 Job Interview Works\RssFeedFenix(RomanSt)\RssFeedFenix\RssFeedCore\obj\Debug\RssService.pdb
+D:\0000 WEB_Projects Visual Studio\28 Job Interview Works\RssFeedFenix(RomanSt)\RssFeedFenix\RssFeedService\bin\Debug\RssService.dll
+D:\0000 WEB_Projects Visual Studio\28 Job Interview Works\RssFeedFenix(RomanSt)\RssFeedFenix\RssFeedService\bin\Debug\RssService.pdb
+D:\0000 WEB_Projects Visual Studio\28 Job Interview Works\RssFeedFenix(RomanSt)\RssFeedFenix\RssFeedService\obj\Debug\RssService.csprojResolveAssemblyReference.cache
+D:\0000 WEB_Projects Visual Studio\28 Job Interview Works\RssFeedFenix(RomanSt)\RssFeedFenix\RssFeedService\obj\Debug\RssService.dll
+D:\0000 WEB_Projects Visual Studio\28 Job Interview Works\RssFeedFenix(RomanSt)\RssFeedFenix\RssFeedService\obj\Debug\RssService.pdb

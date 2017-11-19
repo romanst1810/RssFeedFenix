@@ -24,15 +24,15 @@
                 <ul>
                     <li ng-repeat="item in result">
                         <p>
-                            <a href="{{item._link}}" target="top">{{item._title}}</a>
+                            <a href="{{item.Links[0].Uri}}" target="top">{{item.Title.Text}}</a>
                         </p>
-                        <p>
-                            {{item._pubDate}}
+                        <!--<p>
+                            {{item.PublishDate}}
                         </p>
-                        <p ng-bind-html="item._description | unsafe ">
+                        <p ng-bind-html="item.Summary.Text | unsafe ">
                             
                         </p>
-                        <br/>
+                        <br/>-->
                     </li>
                 </ul>
 
