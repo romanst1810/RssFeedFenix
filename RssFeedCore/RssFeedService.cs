@@ -1,137 +1,91 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using RssService.Rss;
+using System.Xml;
+using System.ServiceModel.Syndication;
 
 namespace RssService
 {
-    // All Classes , Interfaces in One Class For Understanding.
-    public class OperationInfo
-    {
-        public string Id { get; set; }
-        public string Text { get; set; }
-    }
-
-    public interface IRssService
-    {
-        IEnumerable<OperationInfo> GetOperations();
-        OperationResult Fetch(OperationRequest context);
-    }
-
     public class OperationRequest
     {
-        public string OperationId { get; set; }
+        public string ItemId { get; set; }
         public string RssFeedUrl { get; set; }
-        public string RssFeedXml { get; set; }
-
         public OperationRequest()
         {
-            RssFeedUrl = "http://www.economist.com/sections/obituary/rss.xml";
-            RssFeedXml = string.Empty;
+           RssFeedUrl = "http://www.economist.com/sections/obituary/rss.xml";
         }
     }
-
     public class OperationResult
     {
-        public string OperationId { get; set; }
-        public RssDocument Result { get; set; }
+        public string ItemId { get; set; }
+        public SyndicationFeed Result { get; set; }
+        public SyndicationItem ItemResult { get; set; }
     }
-
-    public interface IOperation<TIn, TOut>
+    public interface IRssService
     {
-        bool CanExecute(TIn context);
-        TOut Execute(TIn context);
+        OperationResult Fetch(OperationRequest context);
+        OperationResult FetchById(OperationRequest context);
     }
-
-    public interface IRssOperation : IOperation<OperationRequest, RssDocument>
-    {
-        string Code { get; }
-    }
-
-    //public interface IRssOpertionFactory
-    //{
-    //    IRssOperation Create(string operationId);
-    //}
-
+   
     public class RssFeedService : IRssService
     {
-        private IEnumerable<IRssOperation> Operations;
-       // private IRssOpertionFactory Factory;
-
-        public RssFeedService()
-        {
-            Operations = new IRssOperation[] { new LoadFromUrlOperation() , new LoadFromXmlOperation() };
-        }
-
-        public RssFeedService(IEnumerable<IRssOperation> operation)
-        {
-            this.Operations = operation;
-        }
-
-        public IEnumerable<OperationInfo> GetOperations()
-        {
-            return Operations.Select(x => new OperationInfo()
-            {
-                Id = x.Code
-            }).ToArray();
-        }
-
         public OperationResult Fetch(OperationRequest context)
         {
-            var operation = Operations.FirstOrDefault(x => x.CanExecute(context));
-            if (operation == null)
+            if (context == null)
+                throw new ArgumentException();
+            SyndicationFeed sf = GetRssFeed(context);
+            OperationResult opRes = GetOperationResult(sf);
+            return opRes;
+        }
+        public OperationResult FetchById(OperationRequest context)
+        {
+            if (context == null)
+                throw new ArgumentException();
+            SyndicationItem siItem = GetRssFeedById(context);
+            OperationResult opRes = GetOperationResultByItem(siItem);
+            return opRes;
+        }
+
+        private SyndicationFeed GetRssFeed(OperationRequest context)
+        {
+            var r = XmlReader.Create(context.RssFeedUrl);
+            SyndicationFeed sf = SyndicationFeed.Load(r);
+            r.Close();
+            return sf;
+        }
+        
+        private OperationResult GetOperationResult(SyndicationFeed sf)
+        {
+            var opRes = new OperationResult()
             {
-                throw new NotSupportedException();
-            }
-            var result = new OperationResult()
-            {
-                OperationId = operation.Code,
-                Result = operation.Execute(context)
+                Result = sf
             };
-            return result;
-        }
-    }
-
-    public abstract class OperationBase : IRssOperation
-    {
-        protected OperationBase(string opertion)
-        {
-            Code = opertion;
-        }
-        public bool CanExecute(OperationRequest context)
-        {
-            return context != null && context.OperationId == Code;
-        }
-        public abstract RssDocument Execute(OperationRequest context);
-        public string Code { get; private set; }
-    }
-
-    public class LoadFromUrlOperation : OperationBase
-    {
-        public LoadFromUrlOperation() : base("LoadFromUrl")
-        {
-        }
-        public override RssDocument Execute(OperationRequest context)
-        {
-            if (context == null)
-                throw new ArgumentException();
-            var xml = RssDocument.Load(context.RssFeedUrl);
-            return xml;
-        }
-    }
-
-    public class LoadFromXmlOperation : OperationBase
-    {
-        public LoadFromXmlOperation() : base("LoadFromXml")
-        {
+            return opRes;
         }
 
-        public override RssDocument Execute(OperationRequest context)
+        private SyndicationItem GetRssFeedById(OperationRequest context)
         {
-            if (context == null)
-                throw new ArgumentException();
-            var xml = RssDocument.LoadFromXml(context.RssFeedUrl);
-            return xml;
+            var syndicationItem = new SyndicationItem();
+            var r = XmlReader.Create(context.RssFeedUrl);
+            SyndicationFeed sf = SyndicationFeed.Load(r);
+            r.Close();
+            foreach (var item in sf.Items)
+            {
+                if (item.Id == context.ItemId)
+                {
+                    syndicationItem = item;
+                }
+            }
+            return syndicationItem;
+        }
+        private OperationResult GetOperationResultByItem(SyndicationItem sItem)
+        {
+            var opRes = new OperationResult()
+            {
+               ItemResult = sItem,
+               ItemId = sItem.Id
+            };
+            return opRes;
         }
     }
 }
