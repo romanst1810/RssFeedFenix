@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script src="Scripts/jquery-1.10.2.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="Scripts/simpleRssFeed.js"></script>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="Scripts/bootstrap.min.js"></script>
+    <link href="Content/Site.css" rel="stylesheet" />
+    <title>Simple RSS FEED</title>
+</head>
+<body>
+    <div class="col-lg-9 col-lg-offset-2 panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <h2>Simple RSS FEED</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9 col-lg-offset-2 panel panel-default" ng-app="rss-app">
+        <div class="panel-body" ng-controller="rssController">
+            <div class="row">
+                <ul>
+                    <li ng-repeat="item in result">
+                        <p>
+                            <a href="{{item._link}}" target="top">{{item._title}}</a>
+                        </p>
+                        <p>
+                            {{item._pubDate}}
+                        </p>
+                        <p ng-bind-html="item._description | unsafe ">
+                            
+                        </p>
+                        <br/>
+                    </li>
+                </ul>
+
+            </div>
+            <!--<div class="row">
+                <span class="col-xs-2 col-md-2 text-danger font-weight-bold">
+                    {{exceptionMessageText}}
+                </span>
+            </div>-->
+        </div>
+    </div>
+
+</body>
+</html>
+

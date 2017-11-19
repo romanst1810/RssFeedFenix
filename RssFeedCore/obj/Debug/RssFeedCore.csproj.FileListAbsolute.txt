@@ -1,0 +1,5 @@
+D:\0000 WEB_Projects Visual Studio\28 Job Interview Works\RssFeedFenix(RomanSt)\RssFeedToJson\RssFeedCore\obj\Debug\RssFeedCore.csprojResolveAssemblyReference.cache
+D:\0000 WEB_Projects Visual Studio\28 Job Interview Works\RssFeedFenix(RomanSt)\RssFeedToJson\RssFeedCore\bin\Debug\RssFeedCore.dll
+D:\0000 WEB_Projects Visual Studio\28 Job Interview Works\RssFeedFenix(RomanSt)\RssFeedToJson\RssFeedCore\bin\Debug\RssFeedCore.pdb
+D:\0000 WEB_Projects Visual Studio\28 Job Interview Works\RssFeedFenix(RomanSt)\RssFeedToJson\RssFeedCore\obj\Debug\RssFeedCore.dll
+D:\0000 WEB_Projects Visual Studio\28 Job Interview Works\RssFeedFenix(RomanSt)\RssFeedToJson\RssFeedCore\obj\Debug\RssFeedCore.pdb
