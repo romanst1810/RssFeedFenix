@@ -24,7 +24,7 @@ namespace RssFeedToJson.Controllers
             _service = service;
             RssUrl = "http://www.economist.com/sections/obituary/rss.xml";
         }
-        
+
         [HttpGet]
         public IEnumerable<SyndicationItem> GetRssFeed()
         {
@@ -49,6 +49,7 @@ namespace RssFeedToJson.Controllers
         {
             try
             {
+                request.RssFeedUrl = RssUrl;
                 OperationResult or = _service.FetchById(request);
                 SyndicationItem result = or.ItemResult;
                 return result;

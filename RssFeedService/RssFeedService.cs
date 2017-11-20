@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Xml;
 using System.ServiceModel.Syndication;
+using System.Threading.Tasks;
 
 namespace RssService
 {
@@ -10,10 +12,6 @@ namespace RssService
     {
         public string ItemId { get; set; }
         public string RssFeedUrl { get; set; }
-        public OperationRequest()
-        {
-           RssFeedUrl = "http://www.economist.com/sections/obituary/rss.xml";
-        }
     }
     public class OperationResult
     {
@@ -21,6 +19,7 @@ namespace RssService
         public SyndicationFeed Result { get; set; }
         public SyndicationItem ItemResult { get; set; }
     }
+
     public interface IRssService
     {
         OperationResult Fetch(OperationRequest context);
